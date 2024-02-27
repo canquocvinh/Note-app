@@ -23,6 +23,7 @@ class UseCase @Inject constructor(
         db.close()
     }
 
+    // sua lai
     fun updateData(title: String, oldTitle: String) {
         val db = db.writableDatabase
         val values = ContentValues().apply {
