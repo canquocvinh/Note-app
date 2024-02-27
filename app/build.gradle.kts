@@ -36,6 +36,10 @@ android {
         jvmTarget = "1.8"
     }
 
+    viewBinding {
+        enable = true
+    }
+
     dataBinding {
         enable = true
     }
@@ -54,6 +58,8 @@ dependencies {
     // Live data and view model
     val lifecycle_version = "2.7.0"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-extensions-ktx:$lifecycle_version")
+    implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     // Dagger hilt
