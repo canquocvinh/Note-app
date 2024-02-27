@@ -22,6 +22,10 @@ class MainViewModel @Inject constructor(
         get() = _listNote
 
     init {
+        getNotes()
+    }
+
+    fun getNotes() {
         _listNote.value = useCase.readData()
     }
 

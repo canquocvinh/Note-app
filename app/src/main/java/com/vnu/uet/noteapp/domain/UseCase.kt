@@ -10,7 +10,6 @@ import com.vnu.uet.noteapp.data.NoteDatabaseHelper.FeedReaderContract.FeedEntry.
 import com.vnu.uet.noteapp.data.NoteDatabaseHelper.FeedReaderContract.FeedEntry.TABLE_NAME
 import com.vnu.uet.noteapp.data.model.Note
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class UseCase @Inject constructor(
     private val db: NoteDatabaseHelper
@@ -36,13 +35,6 @@ class UseCase @Inject constructor(
             values,
             selection,
             selectionArgs)
-    }
-
-    fun deleteData(title: String) {
-        val db = db.writableDatabase
-        val selection = "$COLUMN_NAME_TITLE LIKE ?"
-        val selectionArgs = arrayOf(title)
-        db.delete(TABLE_NAME, selection, selectionArgs)
     }
 
     @SuppressLint("Range")

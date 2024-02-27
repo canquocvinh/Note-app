@@ -1,18 +1,17 @@
 package com.vnu.uet.noteapp.presentation.view
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.vnu.uet.noteapp.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vnu.uet.noteapp.data.model.Note
 import com.vnu.uet.noteapp.databinding.ActivityMainBinding
+import com.vnu.uet.noteapp.presentation.base.BaseActivity
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -20,25 +19,27 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: NoteAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-        initView()
-        initAction()
-        initCollectData()
+        super.onCreate(savedInstanceState)
     }
 
-    private fun initView() {
+    override fun initView() {
         binding.rvNotes.layoutManager = LinearLayoutManager(this)
         adapter = NoteAdapter()
         binding.rvNotes.adapter = adapter
     }
 
-    private fun initAction() {
-        adapter.itemClick = {position ->
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.getNotes()
+    }
+
+    override fun initAction() {
+        adapter.itemClick = { position ->
             mainViewModel.navigateUpdateNote(this, notes[position].title, notes[position].content)
         }
 
@@ -52,12 +53,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun initCollectData() {
-        mainViewModel.listNote.observe(this, Observer {
+    override fun initCollectData() {
+        mainViewModel.listNote.observe(this) {
             adapter.clearNotes()
             adapter.setNotes(it)
             adapter.notifyDataSetChanged()
-        })
+        }
     }
 
 }

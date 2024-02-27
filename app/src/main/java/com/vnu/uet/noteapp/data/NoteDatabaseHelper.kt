@@ -1,19 +1,14 @@
 package com.vnu.uet.noteapp.data
 
-import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
 import com.vnu.uet.noteapp.data.NoteDatabaseHelper.FeedReaderContract.FeedEntry.COLUMN_NAME_CONTENT
 import com.vnu.uet.noteapp.data.NoteDatabaseHelper.FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE
 import com.vnu.uet.noteapp.data.NoteDatabaseHelper.FeedReaderContract.FeedEntry.TABLE_NAME
-import com.vnu.uet.noteapp.data.model.Note
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
 class NoteDatabaseHelper @Inject constructor(@ApplicationContext private val context: Context) :
@@ -39,8 +34,6 @@ class NoteDatabaseHelper @Inject constructor(@ApplicationContext private val con
         db.execSQL(SQL_CREATE_ENTRIES)
     }
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
         db.execSQL(SQL_DELETE_ENTRIES)
         onCreate(db)
     }
@@ -49,7 +42,6 @@ class NoteDatabaseHelper @Inject constructor(@ApplicationContext private val con
     }
 
     companion object {
-        // If you change the database schema, you must increment the database version.
         const val DATABASE_VERSION = 1
         const val DATABASE_NAME = "FeedReader.db"
     }
