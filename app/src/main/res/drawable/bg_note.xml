@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF"/> <!-- màu nền của item -->
+    <stroke android:width="2dp" android:color="#000000" /> <!-- viền đen với độ rộng là 2dp -->
+</shape>

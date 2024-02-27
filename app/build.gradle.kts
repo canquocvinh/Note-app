@@ -58,13 +58,18 @@ dependencies {
     // Live data and view model
     val lifecycle_version = "2.7.0"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-extensions-ktx:$lifecycle_version")
     implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     // Dagger hilt
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-compiler:2.50")
+
+    // Recyclerview
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    // Card view
+    implementation("androidx.cardview:cardview:1.0.0")
 }
 
 kapt {
