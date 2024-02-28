@@ -29,10 +29,11 @@ class MainViewModel @Inject constructor(
         _listNote.value = useCase.readData()
     }
 
-    fun navigateUpdateNote(context: Context, title: String, content: String) {
+    fun navigateUpdateNote(context: Context, id: Int, title: String, content: String) {
         val intent = Intent(context, UpdateNoteActivity::class.java)
         intent.putExtra(TITLE, title)
         intent.putExtra(CONTENT, content)
+        intent.putExtra(ID, id)
         context.startActivity(intent)
     }
 
@@ -48,5 +49,6 @@ class MainViewModel @Inject constructor(
     companion object {
         const val TITLE = "title"
         const val CONTENT = "content"
+        const val ID = "id"
     }
 }

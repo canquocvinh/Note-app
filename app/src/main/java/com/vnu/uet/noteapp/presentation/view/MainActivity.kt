@@ -6,6 +6,7 @@ import com.vnu.uet.noteapp.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vnu.uet.noteapp.R
 import com.vnu.uet.noteapp.data.model.Note
 import com.vnu.uet.noteapp.databinding.ActivityMainBinding
 import com.vnu.uet.noteapp.presentation.base.BaseActivity
@@ -36,11 +37,19 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         mainViewModel.getNotes()
+        resetSearch()
+    }
+
+    private fun resetSearch() {
+        binding.etText.setText("")
     }
 
     override fun initAction() {
         adapter.itemClick = { position ->
-            mainViewModel.navigateUpdateNote(this, notes[position].title, notes[position].content)
+            notes[position].id?.let {
+                mainViewModel.navigateUpdateNote(this,
+                    it, notes[position].title, notes[position].content)
+            }
         }
 
         binding.ibCreateNote.setOnClickListener {
@@ -56,8 +65,14 @@ class MainActivity : BaseActivity() {
     override fun initCollectData() {
         mainViewModel.listNote.observe(this) {
             adapter.clearNotes()
-            adapter.setNotes(it)
+            if (it.isEmpty()) {
+                showToast(getString(R.string.no_result_search))
+            } else {
+                adapter.setNotes(it)
+            }
             adapter.notifyDataSetChanged()
+            notes.clear()
+            notes.addAll(it)
         }
     }
 

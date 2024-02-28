@@ -20,12 +20,12 @@ class UpdateNoteViewModel @Inject constructor(
     private val _isFail = MutableLiveData(false)
     val isFail : LiveData<Boolean>
         get() = _isFail
-    fun updateNote(title: String, content: String) {
-        if (title.isEmpty() || content.isEmpty()) {
+    fun updateNote(oldId: Int, note: Note) {
+        if (note.title.isEmpty() || note.content.isEmpty()) {
             _isFail.value = true
             return
         }
-        //update can sua
+        useCase.updateData(oldId, note)
         _isUpdateNoteSuccess.value = true
     }
 

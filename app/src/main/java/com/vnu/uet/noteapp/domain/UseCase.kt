@@ -24,18 +24,20 @@ class UseCase @Inject constructor(
     }
 
     // sua lai
-    fun updateData(title: String, oldTitle: String) {
+    fun updateData(oldId: Int, newNote: Note) {
         val db = db.writableDatabase
         val values = ContentValues().apply {
-            put(COLUMN_NAME_TITLE, title)
+            put(COLUMN_NAME_TITLE, newNote.title)
+            put(COLUMN_NAME_CONTENT, newNote.content)
         }
-        val selection = "$COLUMN_NAME_TITLE LIKE ?"
-        val selectionArgs = arrayOf(oldTitle)
+        val selection = "${BaseColumns._ID} LIKE ?"
+        val selectionArgs = arrayOf(oldId.toString())
         db.update(
             TABLE_NAME,
             values,
             selection,
             selectionArgs)
+        db.close()
     }
 
     @SuppressLint("Range")

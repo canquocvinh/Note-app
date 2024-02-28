@@ -1,7 +1,9 @@
 package com.vnu.uet.noteapp.presentation.base
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.vnu.uet.noteapp.R
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -18,4 +20,8 @@ open class BaseActivity : AppCompatActivity() {
     protected open fun initCollectData() {}
 
     protected open fun initAction() {}
+
+    fun showToast(text: String) {
+        Toast.makeText(this.applicationContext, text, Toast.LENGTH_SHORT).show()
+    }
 }

@@ -37,13 +37,9 @@ class CreateNoteActivity : BaseActivity() {
 
         createNoteViewModel.isFail.observe(this) {
             if (it) {
-                showToast()
+                showToast(getString(R.string.inform_empty_title_content))
                 createNoteViewModel.resetIsFail()
             }
         }
-    }
-
-    private fun showToast() {
-        Toast.makeText(this.applicationContext, getString(R.string.inform_empty_title_content), Toast.LENGTH_SHORT).show()
     }
 }
